@@ -7,7 +7,6 @@ import { doc, getDoc } from "firebase/firestore";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
-import minecraftTen from "../assets/Fonts/MinecraftTen.ttf";
 
 const allNavItems = [
     { label: "About", icon: "/About.png", path: "/about" },
@@ -239,23 +238,15 @@ function Home() {
         <div style={{ minHeight: "100vh", overflow: "hidden", position: "relative", fontFamily: "'Courier New', monospace" }}>
 
             <style>{`
-                @font-face {
-                    font-family: "Minecraft Ten";
-                    src: url("${minecraftTen}") format("truetype");
-                    font-weight: normal;
-                    font-style: normal;
-                    font-display: swap;
-                }
-
-                @keyframes logofloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
-                @keyframes cursorBlink { 0%,45%{opacity:1} 46%,100%{opacity:0} }
-                ::-webkit-scrollbar { width: 6px; }
-                ::-webkit-scrollbar-track { background: #0a0a0a; }
-                ::-webkit-scrollbar-thumb { background: #FF6FAE; border-radius: 3px; }
-                .nav-item:hover { background: rgba(255,111,174,0.15) !important; }
-                .social-btn:hover { transform: scale(1.15); filter: brightness(1.3); }
-                .gallery-card:hover img { transform: scale(1.04); }
-            `}</style>
+    @font-face {
+        font-family: "Minecraft Ten";
+        src: url("/Fonts/MinecraftTen.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }
+    /* rest of your styles... */
+`}</style>
 
             <AnimatePresence>
                 {authChecked && !user && showIntro && (
@@ -708,7 +699,7 @@ function Home() {
                 {/* ── Gallery Section ── */}
                 {visibleGallery.length > 0 && (
                     <div style={{ padding: isMobile ? "2rem 1rem" : "3rem 2rem", maxWidth: "1200px", margin: "0 auto" }}>
-                       
+
 
                         {/* ✅ FIXED: 2-column grid, each card is 16:9 with cover image */}
                         <div style={{
