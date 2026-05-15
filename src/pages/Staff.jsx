@@ -62,7 +62,7 @@ const STAFF = [
             { label: "Creative", color: "#ffb6d5" },
         ],
         socials: [
-            { type: "link", icon: ig, href: "https://www.instagram.com/real_himadrid", label: "Instagram" },
+            { type: "link", icon: ig, href: "https://www.instagram.com/gwfonta?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", label: "Instagram" },
             { type: "hover", icon: dc, reveal: "fontaz_h", label: "Discord" },
         ],
         special: false,

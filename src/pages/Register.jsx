@@ -322,7 +322,6 @@ function Register() {
             { key: "password", label: "Password" },
             { key: "confirmPassword", label: "Repeat Password" },
             { key: "mcUsername", label: "Minecraft Username" },
-            { key: "studentId", label: "Student ID" },
             { key: "roll", label: "Roll Number" },
             { key: "section", label: "Section" },
             { key: "grade", label: "Grade" },
@@ -666,7 +665,7 @@ function Register() {
 
                         <input
                             name="studentId"
-                            placeholder="Student ID"
+                            placeholder="Student ID (optional)"
                             onChange={handleChange}
                             value={form.studentId}
                             inputMode="numeric"
@@ -688,7 +687,7 @@ function Register() {
                         </div>
                         {openGender && (
                             <div style={dropdownMenu}>
-                                {["Male", "Female", "Other"].map((g) => (
+                                {["Male", "Female", "Other", "BIB"].map((g) => (
                                     <div key={g}
                                         onClick={() => { setForm({ ...form, gender: g }); setOpenGender(false); }}
                                         style={dropdownItem}
