@@ -245,7 +245,17 @@ function Home() {
         font-style: normal;
         font-display: swap;
     }
-    /* rest of your styles... */
+
+    @keyframes logofloat {
+        0%   { transform: translateY(0px);   filter: drop-shadow(0 0 18px rgba(255,111,174,0.55)); }
+        50%  { transform: translateY(-14px); filter: drop-shadow(0 0 36px rgba(255,111,174,0.9)) drop-shadow(0 0 60px rgba(245,200,66,0.35)); }
+        100% { transform: translateY(0px);   filter: drop-shadow(0 0 18px rgba(255,111,174,0.55)); }
+    }
+
+    @keyframes cursorBlink {
+        0%, 100% { opacity: 0.7; }
+        50%       { opacity: 0; }
+    }
 `}</style>
 
             <AnimatePresence>
