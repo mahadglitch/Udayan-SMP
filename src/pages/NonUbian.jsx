@@ -714,21 +714,21 @@ function NonUbian() {
             const userCredential = await createUserWithEmailAndPassword(auth, form.email, form.password);
             const user = userCredential.user;
 
-            await setDoc(doc(db, "players", user.uid), {
-                name: form.name,
-                email: form.email,
-                mcUsername: form.mcUsername,
-                school: form.school,
-                roll: form.roll,
-                section: form.section,
-                grade: form.grade,
-                gender: form.gender,
-                role: "user",
-                isAdmin: false,
-                status: "active",
-                registeredAt: new Date().toISOString(),
-                createdAt: new Date(),
-            });
+           await setDoc(doc(db, "players", user.uid), {
+    name: form.name,
+    email: form.email,
+    mcUsername: form.mcUsername,
+    school: form.school,        // ← this was missing!
+    roll: form.roll,
+    section: form.section,
+    grade: form.grade,
+    gender: form.gender,
+    role: "user",
+    isAdmin: false,
+    status: "active",
+    registeredAt: new Date().toISOString(),
+    createdAt: new Date(),
+});
 
             setLoading(false);
             navigate("/login");
