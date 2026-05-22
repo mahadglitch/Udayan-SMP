@@ -74,7 +74,7 @@ const STAFF = [
         name: "Himadree",
         avatar: "/fon.png",
         role: "Creative Director · Admin",
-        desc: "The creative force behind the server's identity. Fontaz shapes community aesthetics, sparks event ideas, and makes sure the vibe stays elite. Art meets gameplay.",
+        desc: "The creative force behind the server's identity. Himadree shapes community aesthetics, sparks event ideas, and makes sure the vibe stays elite. Art meets gameplay.",
         badges: [
             { label: "Creative Director", color: "#7289DA" },
             { label: "Admin", color: "#ffb6d5" },
