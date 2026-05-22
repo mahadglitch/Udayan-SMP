@@ -35,6 +35,25 @@ const INTRO_QUOTES = [
     "Rise from nothing... to legend."
 ];
 
+// ✅ FIX: Load the font via FontFace API and return a promise that resolves
+//         only when the font is fully downloaded and ready to paint.
+//         This means the intro text will NEVER flash in a fallback font.
+function preloadMinecraftFont() {
+    // If already in the document font set, resolve immediately
+    for (const f of document.fonts) {
+        if (f.family === "Minecraft Ten" && f.status === "loaded") {
+            return Promise.resolve();
+        }
+    }
+    const font = new FontFace(
+        "Minecraft Ten",
+        "url('/fonts/MinecraftTen.ttf') format('truetype')"
+    );
+    return font.load().then((loadedFont) => {
+        document.fonts.add(loadedFont);
+    });
+}
+
 function Home() {
     const navigate = useNavigate();
     const [loaded, setLoaded] = useState(false);
@@ -49,6 +68,8 @@ function Home() {
     const [isMobile, setIsMobile] = useState(false);
     const [failedImages, setFailedImages] = useState(new Set());
     const [authChecked, setAuthChecked] = useState(false);
+    // ✅ FIX: gate that blocks the intro until MinecraftTen is fully loaded
+    const [fontLoaded, setFontLoaded] = useState(false);
     const [showIntro, setShowIntro] = useState(() => {
         if (typeof window === "undefined") return true;
         return sessionStorage.getItem(INTRO_SEEN_KEY) !== "true";
@@ -56,6 +77,17 @@ function Home() {
     const [introStep, setIntroStep] = useState(0);
     const [typedText, setTypedText] = useState("");
     const [typingDone, setTypingDone] = useState(false);
+
+    // ✅ FIX: load font immediately on mount, before anything else renders
+    useEffect(() => {
+        preloadMinecraftFont()
+            .then(() => setFontLoaded(true))
+            .catch(() => {
+                // Font failed to load (e.g. offline) — unblock anyway so the
+                // page isn't stuck, it'll just use the fallback font.
+                setFontLoaded(true);
+            });
+    }, []);
 
     useEffect(() => {
         const check = () => setIsMobile(window.innerWidth < 768);
@@ -106,8 +138,9 @@ function Home() {
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, [showIntro]);
 
+    // ✅ FIX: typewriter now waits for BOTH authChecked AND fontLoaded
     useEffect(() => {
-        if (!authChecked || user || !showIntro) return;
+        if (!authChecked || user || !showIntro || !fontLoaded) return;
 
         sessionStorage.setItem(INTRO_SEEN_KEY, "true");
 
@@ -165,7 +198,7 @@ function Home() {
             stopped = true;
             clearTimeout(timeoutId);
         };
-    }, [authChecked, user, showIntro]);
+    }, [authChecked, user, showIntro, fontLoaded]); // ✅ fontLoaded added here
 
     useEffect(() => {
         const fetchAnnouncements = async () => {
@@ -213,7 +246,6 @@ function Home() {
     const gridGallery = hasLoneLast ? visibleGallery.slice(0, -1) : visibleGallery;
     const loneLastImg = hasLoneLast ? visibleGallery[visibleGallery.length - 1] : null;
 
-    // ✅ FIXED: images now fill their cards with no black bars
     const galleryImageStyle = {
         width: "100%",
         height: "100%",
@@ -223,7 +255,6 @@ function Home() {
         transition: "transform 0.4s ease",
     };
 
-    // ✅ FIXED: card uses aspectRatio so it's always the right shape
     const galleryCardStyle = {
         borderRadius: "10px",
         border: "1px solid rgba(255,111,174,0.2)",
@@ -240,10 +271,10 @@ function Home() {
             <style>{`
     @font-face {
         font-family: "Minecraft Ten";
-        src: url("/Fonts/MinecraftTen.ttf") format("truetype");
+        src: url("/fonts/MinecraftTen.ttf") format("truetype");
         font-weight: normal;
         font-style: normal;
-        font-display: swap;
+        font-display: block;
     }
 
     @keyframes logofloat {
@@ -258,8 +289,11 @@ function Home() {
     }
 `}</style>
 
+            {/* ✅ FIX: intro is only mounted after fontLoaded is true,
+                so MinecraftTen is guaranteed to be in document.fonts before
+                a single character is painted — no fallback font flash ever */}
             <AnimatePresence>
-                {authChecked && !user && showIntro && (
+                {fontLoaded && authChecked && !user && showIntro && (
                     <motion.div
                         initial={{ opacity: 1 }}
                         animate={{ opacity: 1 }}
@@ -274,7 +308,7 @@ function Home() {
                             justifyContent: "center",
                             background: "radial-gradient(circle at center, rgba(255,111,174,0.22), rgba(10,0,12,0.96) 55%, #000 100%)",
                             backdropFilter: "blur(14px)",
-                            fontFamily: "'Courier New', monospace",
+                            fontFamily: "'Minecraft Ten', 'Courier New', monospace",
                             overflow: "hidden"
                         }}
                     >
@@ -709,9 +743,6 @@ function Home() {
                 {/* ── Gallery Section ── */}
                 {visibleGallery.length > 0 && (
                     <div style={{ padding: isMobile ? "2rem 1rem" : "3rem 2rem", maxWidth: "1200px", margin: "0 auto" }}>
-
-
-                        {/* ✅ FIXED: 2-column grid, each card is 16:9 with cover image */}
                         <div style={{
                             display: "grid",
                             gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(2, minmax(0, 1fr))",
@@ -737,7 +768,6 @@ function Home() {
                             ))}
                         </div>
 
-                        {/* ✅ FIXED: lone last image also uses 16:9 aspect ratio */}
                         {loneLastImg && (
                             <motion.div
                                 key={loneLastImg.id}

@@ -58,14 +58,14 @@ const STAFF = [
         name: "Fontaz_h",
         avatar: "/hima.png",
         role: "Admin · Creative Director",
-        desc: "The creative force behind the server's identity. Fontaz shapes community aesthetics, sparks event ideas, and makes sure the vibe stays elite. Art meets gameplay.",
+        desc: "Minecraft server admin & YouTube content creator. Editor, video maker, and creative force behind the server's content, media, and community presence. Managing gameplay experiences, creating engaging videos, and helping grow an active and entertaining Minecraft community.",
         badges: [
             { label: "Admin", color: "#FF6FAE" },
-            { label: "Creative", color: "#ffb6d5" },
+            { label: "Youtuber", color: "#ffb6d5" },
         ],
         socials: [
             { type: "link", icon: ig, href: "https://www.instagram.com/gwfonta?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", label: "Instagram" },
-            { type: "link", icon: himayt, href: "https://www.youtube.com/@FONTAZ_H", label: "YouTube" },
+            { type: "link", icon: himayt, href: "https://youtube.com/@fontaz_play?si=4Ms6P1mi-yMFZ377", label: "YouTube" },
         ],
         special: false,
     },
@@ -73,31 +73,41 @@ const STAFF = [
         id: "fon",
         name: "Himadree",
         avatar: "/fon.png",
-        role: "Discord Server Builder · Admin",
-        desc: "The architect behind the Discord. Fon engineered the server's structure from the ground up — channels, roles, bots, and every category in between. A legend in his own right.",
+        role: "Creative Director · Admin",
+        desc: "The creative force behind the server's identity. Fontaz shapes community aesthetics, sparks event ideas, and makes sure the vibe stays elite. Art meets gameplay.",
         badges: [
-            { label: "Server Builder", color: "#7289DA" },
+            { label: "Creative Director", color: "#7289DA" },
             { label: "Admin", color: "#ffb6d5" },
         ],
         socials: [
             { type: "link", icon: ig, href: "https://www.instagram.com/real_himadrid?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", label: "Instagram" },
-            { type: "copy", icon: dc, reveal: "fontaz_h", label: "Discord" },
         ],
         special: false,
     },
 ];
 
+// ✅ FIX: rAF throttle + cancel on leave prevents dozens of redundant style recalcs per second
 function useTilt(ref) {
+    const frameRef = useRef(null);
+
     const handleMove = useCallback((e) => {
-        const el = ref.current;
-        if (!el) return;
-        const { left, top, width, height } = el.getBoundingClientRect();
-        const x = (e.clientX - left) / width - 0.5;
-        const y = (e.clientY - top) / height - 0.5;
-        el.style.transform = `perspective(800px) rotateY(${x * 16}deg) rotateX(${-y * 16}deg) scale(1.04)`;
+        if (frameRef.current) return; // already a frame queued — skip
+        frameRef.current = requestAnimationFrame(() => {
+            frameRef.current = null;
+            const el = ref.current;
+            if (!el) return;
+            const { left, top, width, height } = el.getBoundingClientRect();
+            const x = (e.clientX - left) / width - 0.5;
+            const y = (e.clientY - top) / height - 0.5;
+            el.style.transform = `perspective(800px) rotateY(${x * 16}deg) rotateX(${-y * 16}deg) scale(1.04)`;
+        });
     }, [ref]);
 
     const handleLeave = useCallback(() => {
+        if (frameRef.current) {
+            cancelAnimationFrame(frameRef.current);
+            frameRef.current = null;
+        }
         const el = ref.current;
         if (!el) return;
         el.style.transform = "perspective(800px) rotateY(0deg) rotateX(0deg) scale(1)";
@@ -214,7 +224,9 @@ function StaffCard({ member, index, isOwner }) {
             initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 + index * 0.15, ease: [0.16, 1, 0.3, 1] }}
-            style={{ transition: "transform 0.12s ease" }}
+            // ✅ FIX: willChange promotes card to its own GPU compositor layer so
+            //         transforms are handled by the GPU without triggering layout repaints
+            style={{ transition: "transform 0.12s ease", willChange: "transform" }}
         >
             {member.special && <div className="sp-glow-ring" />}
 
@@ -324,6 +336,23 @@ export default function Staff() {
     return (
         <div className="sp-page">
             <style>{`
+                @font-face {
+                    font-family: 'Minecraft';
+                    src: url('/fonts/MinecraftTen.ttf') format('truetype');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+
+                .sp-title {
+                    font-family: 'Minecraft', monospace !important;
+                    letter-spacing: 2px;
+                }
+
+                .sp-typing {
+                    font-family: 'Minecraft', monospace !important;
+                    letter-spacing: 1px;
+                }
+
                 .sp-page {
                     height: 100vh;
                     min-height: 100vh;
@@ -378,6 +407,12 @@ export default function Staff() {
                     justify-content: center;
                     gap: 2rem;
                     padding: 0 2rem 4rem;
+                }
+
+                /* ✅ FIX: translateZ(0) forces GPU layer from first paint,
+                   so the browser doesn't scramble to promote it mid-hover */
+                .sp-card {
+                    transform: translateZ(0);
                 }
 
                 .sp-avatar {
