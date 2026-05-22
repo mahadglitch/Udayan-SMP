@@ -553,7 +553,13 @@ function AdminDashboard() {
                         exit={{ opacity: 0, y: -14, filter: "blur(4px)" }}
                         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        {activePanel === "analytics" && <AnalyticsPanel users={users} />}
+                        {activePanel === "analytics" && (
+    <AnalyticsPanel
+        users={users}
+        foreignerCount={users.filter(u => u.playerType === "foreigner" || u.isForeigner).length}
+        localCount={users.filter(u => u.playerType !== "foreigner" && !u.isForeigner).length}
+    />
+)}
 
                         {activePanel === "users" && (
                             <UsersPanel

@@ -31,7 +31,6 @@ const getPasswordStrength = (pw) => {
     if (/[A-Z]/.test(pw)) score++;
     if (/[0-9]/.test(pw)) score++;
     if (/[^A-Za-z0-9]/.test(pw)) score++;
-
     if (score <= 1) return { label: "Weak", img: "/weak.png", color: "#ff4d4d" };
     if (score === 2) return { label: "Normal", img: "/normal.png", color: "#ffaa00" };
     if (score === 3) return { label: "Strong", img: "/strong.png", color: "#44cc88" };
@@ -130,289 +129,139 @@ const BANGLADESH_SCHOOLS = [
     "Viqarunnisa Noon School and College, Dhaka",
     "Willes Little Flower School and College, Dhaka",
     "Zainul Abedin School and College, Dhaka",
-    "Academia School",
-    "American International School Dhaka",
-    "Anandamoyee Girls' High School",
-    "Armanitola Government High School",
-    "Averroes International School",
-    "Bangabandhu Government Secondary School",
-    "Bangladesh Bank Adarsha High School",
-    "Bangladesh International Tutorial",
-    "Banasree Ideal School and College",
-    "Baridhara Scholars International School and College",
-    "Basabo Government Boys High School",
-    "Basabo Government Girls High School",
-    "Begum Badrunnessa Government Girls' College",
-    "BEPZA Public School and College",
-    "Bir Uttam Shaheed Mahbub School and College",
-    "Cambrian School and College",
-    "Canadian International School Bangladesh",
-    "Cantonment English School and College",
-    "Cherry Blossoms International School and College",
-    "Civil Aviation School and College",
-    "Crescent School and College",
-    "Daffodil International School",
-    "Dhanmondi Government Girls' High School",
-    "Dhanmondi Tutorial",
-    "Dhaka International School",
-    "Dhaka Public School and College",
-    "Dhaka Shikkha Niketan",
-    "Don Bosco School and College",
-    "East West International School and College",
-    "Engineering University School and College",
+    "Academia School", "American International School Dhaka",
+    "Anandamoyee Girls' High School", "Armanitola Government High School",
+    "Averroes International School", "Bangabandhu Government Secondary School",
+    "Bangladesh Bank Adarsha High School", "Bangladesh International Tutorial",
+    "Banasree Ideal School and College", "Baridhara Scholars International School and College",
+    "Basabo Government Boys High School", "Basabo Government Girls High School",
+    "Begum Badrunnessa Government Girls' College", "BEPZA Public School and College",
+    "Bir Uttam Shaheed Mahbub School and College", "Cambrian School and College",
+    "Canadian International School Bangladesh", "Cantonment English School and College",
+    "Cherry Blossoms International School and College", "Civil Aviation School and College",
+    "Crescent School and College", "Daffodil International School",
+    "Dhanmondi Government Girls' High School", "Dhanmondi Tutorial",
+    "Dhaka International School", "Dhaka Public School and College",
+    "Dhaka Shikkha Niketan", "Don Bosco School and College",
+    "East West International School and College", "Engineering University School and College",
     "European Standard School", "Gandaria High School",
-    "Genius Laboratory School and College",
-    "Global International School Dhaka",
-    "Golden Deer Junior School",
-    "Government Laboratory High School",
-    "Green Gems International School",
-    "Greenfield International School",
-    "Gulshan Model High School and College",
-    "Haque International School",
-    "Heed International School",
-    "Imperial International School",
-    "International Hope School Bangladesh",
-    "International School Dhaka",
-    "Islami Adarsha High School",
-    "Jatrabari Ideal School and College",
-    "Jhigatola Government High School",
-    "Kallyanpur Girls School and College",
-    "Khilgaon Government High School",
-    "Kings College Dhaka",
-    "Kurmitola High School and College",
-    "Lalmatia Government Girls High School",
-    "Manarat Dhaka International School",
-    "Marie Curie School",
-    "Mastermind School",
-    "Mirpur Government High School",
-    "Model Academy",
-    "Monipur Girls' High School",
-    "Monipur High School and College",
-    "Motijheel Government Girls' High School",
-    "Motijheel Ideal School and College",
-    "Muslim Modern Academy",
-    "Nawab Habibullah Model School and College",
-    "Nawabpur Government High School",
-    "Northern International School",
-    "Oxford International School",
-    "Pallabi Model High School",
-    "Park International School",
-    "Playpen School",
-    "Premier School Dhaka",
-    "Progressive Model School",
-    "Queen's School and College",
-    "Rajarbag Police Lines School and College",
-    "Residential Model School",
-    "Rupnagar Model School",
-    "Scholars School and College",
-    "Sher-E-Bangla School and College",
-    "Shere Bangla Nagar Government Girls' High School",
-    "Sir John Wilson School",
-    "SOS Hermann Gmeiner College",
-    "South Breeze School",
-    "South Point School",
-    "Springdale International School",
-    "Standard International School",
-    "St. Joseph Higher Secondary School",
-    "Sunny Hill International School",
-    "Sunbeams School",
-    "Sunrise School and College",
-    "Tejgaon Government High School",
-    "The Capital School Dhaka",
-    "The City School Bangladesh",
-    "The Millennium Stars School",
-    "The New School Dhaka",
-    "The Scholars School",
-    "Trust School and College",
-    "Udayan Uchcha Madhyamik Bidyalaya",
-    "Universal Tutorial",
-    "Uttara Crescent School",
-    "Uttara High School and College",
-    "Uttara Model School",
-    "Vision International School",
-    "Wari High School",
-    "West End High School",
-    "Women's Federation High School",
-    "Yale International School",
-    "YWCA Higher Secondary Girls School",
-    "Zigatola Government High School",
-    "Zenith School and College",
-    "Mohammadpur Government High School",
-    "Scholastica",
-    "Sunnydale",
-    "BCIC College",
-    "Mirpur Shaheen School",
-    "BAF Shaheen English Medium College",
+    "Genius Laboratory School and College", "Global International School Dhaka",
+    "Golden Deer Junior School", "Green Gems International School",
+    "Greenfield International School", "Gulshan Model High School and College",
+    "Haque International School", "Heed International School",
+    "Imperial International School", "International Hope School Bangladesh",
+    "International School Dhaka", "Islami Adarsha High School",
+    "Jatrabari Ideal School and College", "Jhigatola Government High School",
+    "Kallyanpur Girls School and College", "Khilgaon Government High School",
+    "Kings College Dhaka", "Kurmitola High School and College",
+    "Lalmatia Government Girls High School", "Manarat Dhaka International School",
+    "Marie Curie School", "Mastermind School", "Mirpur Government High School",
+    "Model Academy", "Monipur Girls' High School", "Monipur High School and College",
+    "Motijheel Government Girls' High School", "Motijheel Ideal School and College",
+    "Muslim Modern Academy", "Nawab Habibullah Model School and College",
+    "Nawabpur Government High School", "Northern International School",
+    "Oxford International School", "Pallabi Model High School",
+    "Park International School", "Playpen School", "Premier School Dhaka",
+    "Progressive Model School", "Queen's School and College",
+    "Rajarbag Police Lines School and College", "Residential Model School",
+    "Rupnagar Model School", "Scholars School and College",
+    "Sher-E-Bangla School and College", "Shere Bangla Nagar Government Girls' High School",
+    "Sir John Wilson School", "SOS Hermann Gmeiner College", "South Breeze School",
+    "South Point School", "Springdale International School", "Standard International School",
+    "St. Joseph Higher Secondary School", "Sunny Hill International School",
+    "Sunbeams School", "Sunrise School and College", "Tejgaon Government High School",
+    "The Capital School Dhaka", "The City School Bangladesh", "The Millennium Stars School",
+    "The New School Dhaka", "The Scholars School", "Trust School and College",
+    "Udayan Uchcha Madhyamik Bidyalaya", "Universal Tutorial", "Uttara Crescent School",
+    "Uttara High School and College", "Uttara Model School", "Vision International School",
+    "Wari High School", "West End High School", "Women's Federation High School",
+    "Yale International School", "YWCA Higher Secondary Girls School",
+    "Zigatola Government High School", "Zenith School and College",
+    "Mohammadpur Government High School", "Scholastica", "Sunnydale", "BCIC College",
+    "Mirpur Shaheen School", "BAF Shaheen English Medium College",
     "Kamrunnessa Government Girls' High School",
     "Birsreshtha Munshi Abdur Rouf Public College",
     "Shaheed Ramiz Uddin Cantonment School and College",
-    "Bangladesh Navy College",
-    "Nirjhor Cantonment Public School and College",
-    "Mohammadpur Preparatory School and College",
-    "Ideal Government Primary School",
-    "A. G. Church School",
-    "A. K. High School and College",
-    "Abdul Khaleque Memorial High School",
-    "Abdullah Memorial High School",
-    "Abdur Razzaque School",
-    "Abdush Sobhan Model High School",
-    "Adarsha Academy Gandaria",
-    "Adarsha Balika Uchcha Biddalya",
-    "Adarsha High School",
-    "Adarsha High School Mirpur",
-    "Addhapak Ali Ahmed High School",
-    "Adhyapak Hamidur Rahman School and College",
-    "Adarsha Bidyaniketon Manikdi",
-    "AERE School and College",
-    "Agargaon Adarsha High School",
-    "Agradut Bidyaniketon High School",
-    "Ahmadbag Adarsha High School",
-    "Al-Haj Modhu Bapary High School",
-    "Al-Nahyan High School",
-    "Al-Sabah Academy",
-    "Alfa Bangla Junior School",
-    "Alhaj Abbas Uddin High School",
-    "Alhaj Abdur Razzak Islamia High School",
-    "Ali Hossain Girls' High School",
-    "Alim Uddin High School",
-    "Amirjan High School",
-    "Amtoli Staff Welfare Government Primary School",
-    "An-Naf Green Model High School",
-    "Anjuman Jamilur Rahman Islamia Junior Girls' High School",
-    "Arab Mission Public School",
-    "Ashrafabad Government Primary School",
-    "Ashrafabad High School",
-    "Asmat Ullah Ideal Junior School",
-    "Avoy Binodini High School",
-    "Azampur Government Primary School",
-    "Azizia Islamia High School",
-    "B.B.M. High School",
-    "Badda Alatunnessa Higher Secondary School",
-    "Banasree Scholars School and College",
-    "Bangladesh International School and College",
-    "Bangladesh Krira Shikkha Protishtan School",
-    "Banophool Adibashi Green Heart School",
-    "Begum Rokeya High School",
-    "Bhashantek Government High School",
-    "Carmichael College School Section",
-    "Central Women's College",
-    "Dhaka Imperial College School Section",
-    "Faujdarhat Cadet College Dhaka Campus",
-    "Gulshan Commerce College School Section",
-    "Hazi Misir Ali School and College",
-    "Hurdco International School",
-    "Jahan International School",
-    "Kadamtala Purbo Bashabo School and College",
-    "Kakoli High School",
-    "Khilgaon Model College",
-    "Kochikantha School",
-    "Little Angels School",
-    "Matuail Bahumukhi High School",
-    "Mirpur Cantonment Public School and College",
-    "Model Mission High School",
-    "Nandipara High School",
-    "National Bank Public School and College",
-    "National Ideal College School Section",
-    "Notre Dame College School Section",
-    "Oxford International School Dhaka",
-    "Peace International School",
-    "Planet International School",
-    "Presidency International School",
-    "Rayerbazar High School",
-    "Saint Francis Xavier Girls School",
-    "Saint Joseph Tutorial",
-    "Scholars International School",
-    "Shahid Police Smrity School and College",
-    "Shahjahanpur Government High School",
-    "Shantinagar High School",
-    "Sunny Preparatory School",
-    "Talimul Quran Academy",
-    "The Palace International School",
-    "Town Hall Model School",
-    "Uttara Town College School Section",
-    "Vikarunnisa Preparatory School",
-    "Willes Little Flower Higher Secondary School",
-    "Wisdom Standard College",
-    "Zia International School",
-    "DPS STS School Dhaka",
-    "Canadian Trillinium School",
-    "Singapore International School Dhaka",
-    "South Point Education Society School",
-    "Imperial College School Section",
-    "Maple Bear Canadian School",
-    "Euro International School",
-    "Orient International School",
-    "Little Flower International School",
-    "Morning Glory School",
-    "Brilliant Grammar School",
-    "Oxford Elite School",
-    "Scholars Tutorial School",
-    "Pledge Harbor International School",
-    "Future Generation School",
-    "Gateway International School",
-    "Happy Days School",
-    "Ideal Preparatory and High School",
-    "Insight School and College",
-    "Intellect School and College",
-    "Knowledge Valley School",
-    "Leaders School and College",
-    "Light House School",
-    "Meridian International School",
-    "Metropolitan School and College",
-    "Modern Child School",
-    "Modern Preparatory School",
-    "Moonlight School",
-    "Nightingale School",
-    "North South Laboratory School",
-    "Notre Dame Preparatory School",
-    "Pacific School and College",
-    "Pathfinder School",
-    "Pearl School and College",
-    "Presidency School",
-    "Prime Scholars School",
-    "Progressive International School",
-    "Royal Academy School",
-    "Scholars Home School",
-    "Sea Breeze International School",
-    "Skyline School and College",
-    "Smart Education School",
-    "South East School and College",
-    "Star Kids School",
-    "Step Ahead International School",
-    "Sunflower School",
-    "The Aga Khan Academy Dhaka",
-    "The City School Bangladesh",
-    "The Earth School",
-    "The Educators Dhaka",
-    "The Excellence School",
-    "The Future School Dhaka",
-    "The Green School",
-    "The Oxford School",
-    "Tiny Tots School",
-    "Unique High School",
-    "Unity International School",
-    "Urban School Dhaka",
-    "Valley View School",
-    "Victory School and College",
-    "Wisdom Tree School",
-    "Young Minds School",
-    "Zenith School and College",
+    "Bangladesh Navy College", "Nirjhor Cantonment Public School and College",
+    "Mohammadpur Preparatory School and College", "Ideal Government Primary School",
+    "DPS STS School Dhaka", "Canadian Trillinium School",
+    "Singapore International School Dhaka", "South Point Education Society School",
+    "Imperial College School Section", "Maple Bear Canadian School",
+    "Euro International School", "Orient International School",
+    "Little Flower International School", "Morning Glory School",
+    "Brilliant Grammar School", "Oxford Elite School", "Scholars Tutorial School",
+    "Pledge Harbor International School", "Future Generation School",
+    "Gateway International School", "Happy Days School",
+    "Ideal Preparatory and High School", "Insight School and College",
+    "Intellect School and College", "Knowledge Valley School",
+    "Leaders School and College", "Light House School",
+    "Meridian International School", "Metropolitan School and College",
+    "Modern Child School", "Modern Preparatory School", "Moonlight School",
+    "Nightingale School", "North South Laboratory School",
+    "Notre Dame Preparatory School", "Pacific School and College",
+    "Pathfinder School", "Pearl School and College", "Presidency School",
+    "Prime Scholars School", "Progressive International School",
+    "Royal Academy School", "Scholars Home School", "Sea Breeze International School",
+    "Skyline School and College", "Smart Education School",
+    "South East School and College", "Star Kids School",
+    "Step Ahead International School", "Sunflower School",
+    "The Aga Khan Academy Dhaka", "The Earth School", "The Educators Dhaka",
+    "The Excellence School", "The Future School Dhaka", "The Green School",
+    "The Oxford School", "Tiny Tots School", "Unique High School",
+    "Unity International School", "Urban School Dhaka", "Valley View School",
+    "Victory School and College", "Wisdom Tree School", "Young Minds School",
     "Others"
 ].sort((a, b) => a.localeCompare(b));
 
-/* ── Welcome Announcement Modal ── */
+/* ── Gender Selector ── */
+function GenderSelector({ value, onChange }) {
+    const genders = ["Male", "Female", "Other"];
+    return (
+        <div style={{ display: "flex", gap: "0.6rem", marginBottom: "1rem" }}>
+            {genders.map(g => (
+                <motion.button
+                    key={g}
+                    type="button"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => onChange(g)}
+                    style={{
+                        flex: 1,
+                        padding: "0.7rem 0",
+                        borderRadius: "12px",
+                        border: value === g
+                            ? "1.5px solid rgba(255,111,174,0.8)"
+                            : "1px solid rgba(255,111,174,0.25)",
+                        background: value === g
+                            ? "linear-gradient(135deg, rgba(255,111,174,0.35), rgba(255,111,174,0.15))"
+                            : "rgba(255,255,255,0.05)",
+                        color: value === g ? "#fff" : "rgba(255,255,255,0.4)",
+                        fontWeight: value === g ? "800" : "500",
+                        fontSize: "0.82rem",
+                        cursor: "pointer",
+                        fontFamily: "inherit",
+                        letterSpacing: "0.5px",
+                        transition: "all 0.2s",
+                        boxShadow: value === g ? "0 0 12px rgba(255,111,174,0.3)" : "none"
+                    }}
+                >
+                    {g === "Male" ? "♂ Male" : g === "Female" ? "♀ Female" : "⚧ Other"}
+                </motion.button>
+            ))}
+        </div>
+    );
+}
+
+/* ── Welcome Modal ── */
 function WelcomeModal({ onClose }) {
     return (
         <AnimatePresence>
             <motion.div
                 key="welcome-backdrop"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                 style={{
                     position: "fixed", inset: 0, zIndex: 20000,
-                    background: "rgba(0,0,0,0.8)",
-                    backdropFilter: "blur(8px)",
+                    background: "rgba(0,0,0,0.8)", backdropFilter: "blur(8px)",
                     display: "flex", alignItems: "center", justifyContent: "center"
                 }}
             >
@@ -425,150 +274,71 @@ function WelcomeModal({ onClose }) {
                     style={{
                         position: "relative",
                         background: "linear-gradient(135deg, rgba(15,5,20,0.98), rgba(35,8,35,0.98))",
-                        border: "1.5px solid rgba(255,111,174,0.45)",
-                        borderRadius: "28px",
-                        padding: "1.8rem 2rem 1.6rem",
-                        maxWidth: "380px", width: "90vw",
+                        border: "1.5px solid rgba(255,111,174,0.45)", borderRadius: "28px",
+                        padding: "1.8rem 2rem 1.6rem", maxWidth: "380px", width: "90vw",
                         textAlign: "center",
                         boxShadow: "0 0 80px rgba(255,111,174,0.2), 0 0 160px rgba(255,111,174,0.08), inset 0 0 40px rgba(255,111,174,0.04)",
-                        overflow: "hidden",
-                        fontFamily: "'Courier New', monospace"
+                        overflow: "hidden", fontFamily: "'Courier New', monospace"
                     }}
                 >
-                    {/* Top glow orb */}
                     <div style={{
                         position: "absolute", top: "-80px", left: "50%", transform: "translateX(-50%)",
                         width: "260px", height: "260px", borderRadius: "50%",
                         background: "radial-gradient(circle, rgba(255,111,174,0.25) 0%, transparent 70%)",
                         pointerEvents: "none"
                     }} />
-
-                    <style>{`
-                        @keyframes shimmer {
-                            0% { background-position: -200% center; }
-                            100% { background-position: 200% center; }
-                        }
-                    `}</style>
-
-                    {/* Floating icon */}
+                    <style>{`@keyframes shimmer { 0%{background-position:-200% center} 100%{background-position:200% center} }`}</style>
                     <motion.div
                         animate={{ y: [0, -10, 0], rotate: [-3, 3, -3] }}
                         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                         style={{ fontSize: "2rem", marginBottom: "0.5rem" }}
-                    >
-                        ⛏️
-                    </motion.div>
-
-                    {/* Badge */}
+                    >⛏️</motion.div>
                     <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
+                        initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
                         style={{
                             display: "inline-block",
                             background: "linear-gradient(90deg, #FF6FAE, #ff9ed2, #FF6FAE)",
-                            backgroundSize: "200% auto",
-                            animation: "shimmer 3s linear infinite",
-                            borderRadius: "50px",
-                            padding: "4px 18px",
-                            fontSize: "0.62rem",
-                            fontWeight: "900",
-                            letterSpacing: "3px",
-                            color: "#fff",
-                            textTransform: "uppercase",
-                            marginBottom: "1rem",
+                            backgroundSize: "200% auto", animation: "shimmer 3s linear infinite",
+                            borderRadius: "50px", padding: "4px 18px", fontSize: "0.62rem",
+                            fontWeight: "900", letterSpacing: "3px", color: "#fff",
+                            textTransform: "uppercase", marginBottom: "1rem",
                             boxShadow: "0 0 14px rgba(255,111,174,0.5)"
                         }}
-                    >
-                        ✦ Heads Up ✦
-                    </motion.div>
-
-                    {/* Title */}
+                    >✦ Heads Up ✦</motion.div>
                     <motion.h2
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.25 }}
-                        style={{
-                            fontSize: "1.25rem",
-                            fontWeight: "900",
-                            color: "#fff",
-                            marginBottom: "0.8rem",
-                            lineHeight: 1.3,
-                            letterSpacing: "1px"
-                        }}
+                        initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}
+                        style={{ fontSize: "1.25rem", fontWeight: "900", color: "#fff", marginBottom: "0.8rem", lineHeight: 1.3, letterSpacing: "1px" }}
                     >
                         Welcome to{" "}
-                        <span style={{ color: "#FF6FAE", textShadow: "0 0 20px rgba(255,111,174,0.6)" }}>
-                            Udayan SMP
-                        </span>
+                        <span style={{ color: "#FF6FAE", textShadow: "0 0 20px rgba(255,111,174,0.6)" }}>Udayan SMP</span>
                     </motion.h2>
-
-                    {/* Divider */}
-                    <div style={{
-                        height: "1px",
-                        background: "linear-gradient(90deg, transparent, rgba(255,111,174,0.4), transparent)",
-                        marginBottom: "1rem"
-                    }} />
-
-                    {/* Message */}
+                    <div style={{ height: "1px", background: "linear-gradient(90deg, transparent, rgba(255,111,174,0.4), transparent)", marginBottom: "1rem" }} />
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.35 }}
-                        style={{
-                            background: "rgba(255,111,174,0.07)",
-                            border: "1px solid rgba(255,111,174,0.2)",
-                            borderRadius: "16px",
-                            padding: "0.9rem 1.1rem",
-                            marginBottom: "1.2rem"
-                        }}
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}
+                        style={{ background: "rgba(255,111,174,0.07)", border: "1px solid rgba(255,111,174,0.2)", borderRadius: "16px", padding: "0.9rem 1.1rem", marginBottom: "1.2rem" }}
                     >
-                        <p style={{
-                            color: "rgba(255,255,255,0.85)",
-                            fontSize: "0.8rem",
-                            lineHeight: 1.7,
-                            margin: 0,
-                            letterSpacing: "0.3px"
-                        }}>
+                        <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.8rem", lineHeight: 1.7, margin: 0, letterSpacing: "0.3px" }}>
                             After you register, your Minecraft account will be{" "}
-                            <span style={{ color: "#FF6FAE", fontWeight: "900" }}>
-                                whitelisted on the server
-                            </span>{" "}
+                            <span style={{ color: "#FF6FAE", fontWeight: "900" }}>whitelisted on the server</span>{" "}
                             within{" "}
-                            <span style={{
-                                color: "#f5c842",
-                                fontWeight: "900",
-                                textShadow: "0 0 10px rgba(245,200,66,0.5)"
-                            }}>
-                                24 hours ⏳
-                            </span>
+                            <span style={{ color: "#f5c842", fontWeight: "900", textShadow: "0 0 10px rgba(245,200,66,0.5)" }}>24 hours ⏳</span>
                             .<br /><br />
                             Sit tight — we'll get you in the server ASAP. 🗡️
                         </p>
                     </motion.div>
-
-                    {/* OK Button */}
                     <motion.button
                         whileHover={{ scale: 1.06, boxShadow: "0 0 30px rgba(255,111,174,0.6)" }}
                         whileTap={{ scale: 0.94 }}
                         onClick={onClose}
                         style={{
-                            padding: "0.75rem 3rem",
-                            borderRadius: "999px",
+                            padding: "0.75rem 3rem", borderRadius: "999px",
                             border: "1.5px solid rgba(255,111,174,0.7)",
                             background: "linear-gradient(135deg, rgba(255,111,174,0.45), rgba(255,111,174,0.2))",
-                            backdropFilter: "blur(10px)",
-                            color: "#fff",
-                            fontWeight: "900",
-                            fontSize: "1rem",
-                            cursor: "pointer",
-                            letterSpacing: "2px",
-                            fontFamily: "'Courier New', monospace",
-                            textTransform: "uppercase"
+                            backdropFilter: "blur(10px)", color: "#fff", fontWeight: "900",
+                            fontSize: "1rem", cursor: "pointer", letterSpacing: "2px",
+                            fontFamily: "'Courier New', monospace", textTransform: "uppercase"
                         }}
-                    >
-                        Got it ✦
-                    </motion.button>
+                    >Got it ✦</motion.button>
                 </motion.div>
             </motion.div>
         </AnimatePresence>
@@ -579,23 +349,14 @@ function NonUbian() {
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
-        name: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-        mcUsername: "",
-        school: "",
-        roll: "",
-        section: "",
-        grade: "",
-        gender: ""
+        name: "", email: "", password: "", confirmPassword: "",
+        mcUsername: "", school: "", roll: "", section: "", grade: "", gender: ""
     });
 
     const [error, setError] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
     const [openGrade, setOpenGrade] = useState(false);
-    const [openGender, setOpenGender] = useState(false);
     const [openSchool, setOpenSchool] = useState(false);
     const [schoolSearch, setSchoolSearch] = useState("");
     const [passwordStrength, setPasswordStrength] = useState(null);
@@ -664,12 +425,8 @@ function NonUbian() {
 
     const handleChange = (e) => {
         let value = e.target.value;
-        if (e.target.name === "roll") {
-            value = value.replace(/\D/g, "");
-        }
-        if (e.target.name === "password") {
-            setPasswordStrength(getPasswordStrength(value));
-        }
+        if (e.target.name === "roll") value = value.replace(/\D/g, "");
+        if (e.target.name === "password") setPasswordStrength(getPasswordStrength(value));
         setForm({ ...form, [e.target.name]: value });
     };
 
@@ -692,44 +449,31 @@ function NonUbian() {
             { key: "gender", label: "Gender" },
         ];
 
-        const missingField = requiredFields.find(field => !form[field.key]?.trim());
-
-        if (missingField) {
-            return setError(`⚠️ Please fill in ${missingField.label}.`);
-        }
-
-        if (!isValidEmail(form.email)) {
-            return setError("⚠️ Please enter a valid email address.");
-        }
-        if (form.password.length < 4) {
-            return setError("⚠️ Password must be at least 4 characters.");
-        }
-        if (form.password !== form.confirmPassword) {
-            return setError("❌ Passwords do not match.");
-        }
+        const missingField = requiredFields.find(f => !form[f.key]?.trim());
+        if (missingField) return setError(`⚠️ Please fill in ${missingField.label}.`);
+        if (!isValidEmail(form.email)) return setError("⚠️ Please enter a valid email address.");
+        if (form.password.length < 4) return setError("⚠️ Password must be at least 4 characters.");
+        if (form.password !== form.confirmPassword) return setError("❌ Passwords do not match.");
 
         setLoading(true);
-
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, form.email, form.password);
             const user = userCredential.user;
-
-           await setDoc(doc(db, "players", user.uid), {
-    name: form.name,
-    email: form.email,
-    mcUsername: form.mcUsername,
-    school: form.school,        // ← this was missing!
-    roll: form.roll,
-    section: form.section,
-    grade: form.grade,
-    gender: form.gender,
-    role: "user",
-    isAdmin: false,
-    status: "active",
-    registeredAt: new Date().toISOString(),
-    createdAt: new Date(),
-});
-
+            await setDoc(doc(db, "players", user.uid), {
+                name: form.name,
+                email: form.email,
+                mcUsername: form.mcUsername,
+                school: form.school,
+                roll: form.roll,
+                section: form.section,
+                grade: form.grade,
+                gender: form.gender,
+                role: "user",
+                isAdmin: false,
+                status: "active",
+                registeredAt: new Date().toISOString(),
+                createdAt: new Date(),
+            });
             setLoading(false);
             navigate("/login");
         } catch (err) {
@@ -741,7 +485,6 @@ function NonUbian() {
     return (
         <div style={{ minHeight: "100vh", position: "relative", overflowY: "auto" }}>
 
-            {/* Welcome Announcement Modal */}
             {showWelcome && <WelcomeModal onClose={() => setShowWelcome(false)} />}
 
             <AnimatePresence>
@@ -808,33 +551,19 @@ function NonUbian() {
                         key={p.id}
                         src="/petal.png"
                         initial={{ x: p.x, y: p.y }}
-                        animate={{
-                            x: p.x + repel.x,
-                            y: p.y + window.innerHeight + repel.y
-                        }}
+                        animate={{ x: p.x + repel.x, y: p.y + window.innerHeight + repel.y }}
                         transition={{ duration: 12 / p.speed, repeat: Infinity, ease: "linear" }}
-                        style={{
-                            position: "fixed",
-                            width: p.size,
-                            opacity: 0.85,
-                            pointerEvents: "none",
-                            zIndex: 0
-                        }}
+                        style={{ position: "fixed", width: p.size, opacity: 0.85, pointerEvents: "none", zIndex: 0 }}
                     />
                 );
             })}
 
             <div style={{ display: "flex", justifyContent: "center", padding: "60px 20px", position: "relative", zIndex: 1 }}>
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
                     style={{
-                        width: "100%",
-                        maxWidth: 400,
-                        padding: "2rem",
-                        borderRadius: 20,
-                        backdropFilter: "blur(16px)",
-                        background: "rgba(255,240,245,0.12)",
+                        width: "100%", maxWidth: 400, padding: "2rem", borderRadius: 20,
+                        backdropFilter: "blur(16px)", background: "rgba(255,240,245,0.12)",
                         border: "1px solid rgba(255,111,174,0.35)",
                         boxShadow: "0 0 30px rgba(255,182,193,0.25)"
                     }}
@@ -844,19 +573,13 @@ function NonUbian() {
                     <AnimatePresence>
                         {error && (
                             <motion.div
-                                initial={{ opacity: 0, y: -8 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0 }}
+                                initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
                                 style={{
-                                    background: "rgba(255,80,80,0.15)",
-                                    border: "1px solid rgba(255,80,80,0.4)",
-                                    borderRadius: 12, padding: "0.75rem 1rem",
-                                    color: "#ff9999", marginBottom: "1rem",
-                                    fontSize: "0.88rem", textAlign: "center"
+                                    background: "rgba(255,80,80,0.15)", border: "1px solid rgba(255,80,80,0.4)",
+                                    borderRadius: 12, padding: "0.75rem 1rem", color: "#ff9999",
+                                    marginBottom: "1rem", fontSize: "0.88rem", textAlign: "center"
                                 }}
-                            >
-                                {error}
-                            </motion.div>
+                            >{error}</motion.div>
                         )}
                     </AnimatePresence>
 
@@ -864,76 +587,42 @@ function NonUbian() {
                         <input name="name" placeholder="Name" onChange={handleChange} required style={input} />
                         <input name="email" type="email" placeholder="Email" onChange={handleChange} required style={input} />
 
+                        {/* Password */}
                         <div style={{ position: "relative", marginBottom: 6 }}>
                             <input
-                                name="password"
-                                type={showPassword ? "text" : "password"}
-                                placeholder="Password"
-                                onChange={handleChange}
-                                required
+                                name="password" type={showPassword ? "text" : "password"}
+                                placeholder="Password" onChange={handleChange} required
                                 style={{ ...input, marginBottom: 0, paddingRight: "3rem" }}
                             />
-                            <button
-                                type="button"
-                                onClick={() => setShowPassword(p => !p)}
-                                style={{
-                                    position: "absolute", right: 12, top: "50%",
-                                    transform: "translateY(-50%)",
-                                    background: "none", border: "none",
-                                    cursor: "pointer", display: "flex",
-                                    alignItems: "center", padding: 2,
-                                    outline: "none"
-                                }}
-                            >
+                            <button type="button" onClick={() => setShowPassword(p => !p)}
+                                style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", padding: 2, outline: "none" }}>
                                 <AnimatePresence mode="wait">
-                                    {showPassword ? (
-                                        <motion.span key="open"
-                                            initial={{ opacity: 0, scale: 0.6 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            exit={{ opacity: 0, scale: 0.6 }}
-                                            transition={{ duration: 0.2 }}
-                                            style={{ display: "flex" }}
-                                        ><EyeOpen /></motion.span>
-                                    ) : (
-                                        <motion.span key="closed"
-                                            initial={{ opacity: 0, scale: 0.6 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            exit={{ opacity: 0, scale: 0.6 }}
-                                            transition={{ duration: 0.2 }}
-                                            style={{ display: "flex" }}
-                                        ><EyeClosed /></motion.span>
-                                    )}
+                                    {showPassword
+                                        ? <motion.span key="open" initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.6 }} transition={{ duration: 0.2 }} style={{ display: "flex" }}><EyeOpen /></motion.span>
+                                        : <motion.span key="closed" initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.6 }} transition={{ duration: 0.2 }} style={{ display: "flex" }}><EyeClosed /></motion.span>
+                                    }
                                 </AnimatePresence>
                             </button>
                         </div>
 
+                        {/* Password Strength */}
                         <AnimatePresence>
                             {passwordStrength && (
                                 <motion.div
-                                    initial={{ opacity: 0, y: -6 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0 }}
+                                    initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
                                     style={{
-                                        display: "flex", alignItems: "center",
-                                        gap: "8px", marginBottom: 10, marginTop: 6,
-                                        padding: "6px 10px", borderRadius: 10,
-                                        background: "rgba(255,255,255,0.05)",
+                                        display: "flex", alignItems: "center", gap: "8px",
+                                        marginBottom: 10, marginTop: 6, padding: "6px 10px",
+                                        borderRadius: 10, background: "rgba(255,255,255,0.05)",
                                         border: `1px solid ${passwordStrength.color}44`
                                     }}
                                 >
-                                    <img src={passwordStrength.img} alt={passwordStrength.label}
-                                        style={{ width: 22, height: 22, objectFit: "contain" }} />
-                                    <span style={{ color: passwordStrength.color, fontSize: "0.8rem", fontWeight: "700", letterSpacing: "0.5px" }}>
-                                        {passwordStrength.label}
-                                    </span>
+                                    <img src={passwordStrength.img} alt={passwordStrength.label} style={{ width: 22, height: 22, objectFit: "contain" }} />
+                                    <span style={{ color: passwordStrength.color, fontSize: "0.8rem", fontWeight: "700", letterSpacing: "0.5px" }}>{passwordStrength.label}</span>
                                     <div style={{ flex: 1, height: 4, borderRadius: 4, background: "rgba(255,255,255,0.1)", overflow: "hidden" }}>
                                         <motion.div
                                             initial={{ width: 0 }}
-                                            animate={{
-                                                width: passwordStrength.label === "Weak" ? "25%" :
-                                                    passwordStrength.label === "Normal" ? "50%" :
-                                                        passwordStrength.label === "Strong" ? "75%" : "100%"
-                                            }}
+                                            animate={{ width: passwordStrength.label === "Weak" ? "25%" : passwordStrength.label === "Normal" ? "50%" : passwordStrength.label === "Strong" ? "75%" : "100%" }}
                                             transition={{ duration: 0.4, ease: "easeOut" }}
                                             style={{ height: "100%", borderRadius: 4, background: passwordStrength.color }}
                                         />
@@ -942,45 +631,20 @@ function NonUbian() {
                             )}
                         </AnimatePresence>
 
+                        {/* Confirm Password */}
                         <div style={{ position: "relative", marginBottom: 10 }}>
                             <input
-                                name="confirmPassword"
-                                type={showConfirm ? "text" : "password"}
-                                placeholder="Repeat Password"
-                                onChange={handleChange}
-                                required
+                                name="confirmPassword" type={showConfirm ? "text" : "password"}
+                                placeholder="Repeat Password" onChange={handleChange} required
                                 style={{ ...input, marginBottom: 0, paddingRight: "3rem" }}
                             />
-                            <button
-                                type="button"
-                                onClick={() => setShowConfirm(p => !p)}
-                                style={{
-                                    position: "absolute", right: 12, top: "50%",
-                                    transform: "translateY(-50%)",
-                                    background: "none", border: "none",
-                                    cursor: "pointer", display: "flex",
-                                    alignItems: "center", padding: 2,
-                                    outline: "none"
-                                }}
-                            >
+                            <button type="button" onClick={() => setShowConfirm(p => !p)}
+                                style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", padding: 2, outline: "none" }}>
                                 <AnimatePresence mode="wait">
-                                    {showConfirm ? (
-                                        <motion.span key="open"
-                                            initial={{ opacity: 0, scale: 0.6 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            exit={{ opacity: 0, scale: 0.6 }}
-                                            transition={{ duration: 0.2 }}
-                                            style={{ display: "flex" }}
-                                        ><EyeOpen /></motion.span>
-                                    ) : (
-                                        <motion.span key="closed"
-                                            initial={{ opacity: 0, scale: 0.6 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            exit={{ opacity: 0, scale: 0.6 }}
-                                            transition={{ duration: 0.2 }}
-                                            style={{ display: "flex" }}
-                                        ><EyeClosed /></motion.span>
-                                    )}
+                                    {showConfirm
+                                        ? <motion.span key="open" initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.6 }} transition={{ duration: 0.2 }} style={{ display: "flex" }}><EyeOpen /></motion.span>
+                                        : <motion.span key="closed" initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.6 }} transition={{ duration: 0.2 }} style={{ display: "flex" }}><EyeClosed /></motion.span>
+                                    }
                                 </AnimatePresence>
                             </button>
                         </div>
@@ -988,13 +652,9 @@ function NonUbian() {
                         <AnimatePresence>
                             {form.confirmPassword && form.password !== form.confirmPassword && (
                                 <motion.p
-                                    initial={{ opacity: 0, y: -4 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0 }}
+                                    initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
                                     style={{ color: "#ff6b6b", fontSize: "0.8rem", marginBottom: 10, marginTop: -4, paddingLeft: 4 }}
-                                >
-                                    ❌ Passwords do not match
-                                </motion.p>
+                                >❌ Passwords do not match</motion.p>
                             )}
                         </AnimatePresence>
 
@@ -1003,7 +663,7 @@ function NonUbian() {
                         {/* School Dropdown */}
                         <div style={{ position: "relative", marginBottom: 10 }}>
                             <div
-                                onClick={() => { setOpenSchool(!openSchool); setOpenGender(false); setOpenGrade(false); }}
+                                onClick={() => { setOpenSchool(!openSchool); setOpenGrade(false); }}
                                 style={{ ...dropdownBox, color: form.school ? "#FF6FAE" : "rgba(255,111,174,0.5)", marginBottom: 0 }}
                             >
                                 {form.school || "Select School"}
@@ -1011,15 +671,12 @@ function NonUbian() {
                             <AnimatePresence>
                                 {openSchool && (
                                     <motion.div
-                                        initial={{ opacity: 0, y: -6 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -6 }}
-                                        transition={{ duration: 0.18 }}
+                                        initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.18 }}
                                         style={{
                                             ...dropdownMenu,
                                             position: "absolute", top: "calc(100% + 4px)",
-                                            left: 0, right: 0, zIndex: 100,
-                                            maxHeight: 220, overflowY: "auto",
+                                            left: 0, right: 0, zIndex: 100, maxHeight: 220, overflowY: "auto",
                                         }}
                                     >
                                         <div style={{ padding: "8px 10px", borderBottom: "1px solid rgba(255,111,174,0.15)" }}>
@@ -1038,19 +695,15 @@ function NonUbian() {
                                             />
                                         </div>
                                         {filteredSchools.length === 0 ? (
-                                            <div style={{ ...dropdownItem, color: "rgba(255,255,255,0.4)", fontSize: "0.85rem" }}>
-                                                No schools found
-                                            </div>
-                                        ) : (
-                                            filteredSchools.map((s) => (
-                                                <div key={s}
-                                                    onClick={() => { setForm({ ...form, school: s }); setOpenSchool(false); setSchoolSearch(""); }}
-                                                    style={dropdownItem}
-                                                    onMouseEnter={e => e.currentTarget.style.background = "rgba(255,111,174,0.2)"}
-                                                    onMouseLeave={e => e.currentTarget.style.background = "transparent"}
-                                                >{s}</div>
-                                            ))
-                                        )}
+                                            <div style={{ ...dropdownItem, color: "rgba(255,255,255,0.4)", fontSize: "0.85rem" }}>No schools found</div>
+                                        ) : filteredSchools.map(s => (
+                                            <div key={s}
+                                                onClick={() => { setForm({ ...form, school: s }); setOpenSchool(false); setSchoolSearch(""); }}
+                                                style={dropdownItem}
+                                                onMouseEnter={e => e.currentTarget.style.background = "rgba(255,111,174,0.2)"}
+                                                onMouseLeave={e => e.currentTarget.style.background = "transparent"}
+                                            >{s}</div>
+                                        ))}
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -1059,23 +712,14 @@ function NonUbian() {
                         <input name="roll" placeholder="Roll Number" onChange={handleChange} value={form.roll} inputMode="numeric" style={input} />
                         <input name="section" placeholder="Section" onChange={handleChange} style={input} />
 
-                        <div onClick={() => { setOpenGender(!openGender); setOpenGrade(false); setOpenSchool(false); }} style={dropdownBox}>
-                            {form.gender || "Select Gender"}
-                        </div>
-                        {openGender && (
-                            <div style={dropdownMenu}>
-                                {["Male", "Female", "Other"].map((g) => (
-                                    <div key={g}
-                                        onClick={() => { setForm({ ...form, gender: g }); setOpenGender(false); }}
-                                        style={dropdownItem}
-                                        onMouseEnter={e => e.currentTarget.style.background = "rgba(255,111,174,0.2)"}
-                                        onMouseLeave={e => e.currentTarget.style.background = "transparent"}
-                                    >{g}</div>
-                                ))}
-                            </div>
-                        )}
+                        {/* Gender Selector */}
+                        <GenderSelector
+                            value={form.gender}
+                            onChange={(val) => setForm(prev => ({ ...prev, gender: val }))}
+                        />
 
-                        <div onClick={() => { setOpenGrade(!openGrade); setOpenGender(false); setOpenSchool(false); }} style={dropdownBox}>
+                        {/* Grade Dropdown */}
+                        <div onClick={() => { setOpenGrade(!openGrade); setOpenSchool(false); }} style={dropdownBox}>
                             {form.grade || "Select Grade"}
                         </div>
                         {openGrade && (
@@ -1094,11 +738,10 @@ function NonUbian() {
                         <motion.button
                             whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(255,111,174,0.5)" }}
                             whileTap={{ scale: 0.95 }}
-                            type="submit"
-                            disabled={loading}
+                            type="submit" disabled={loading}
                             style={{ ...btn, opacity: loading ? 0.65 : 1, cursor: loading ? "not-allowed" : "pointer" }}
                         >
-                            {loading ? "Registering..." : " Register"}
+                            {loading ? "Registering..." : "⚔ Register"}
                         </motion.button>
 
                         <motion.p

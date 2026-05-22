@@ -669,35 +669,67 @@ function UserDashboard() {
 
                     {/* PROFILE TAB */}
                     {activeTab === "profile" && (
-                        <motion.div key="profile" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }}>
-                            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem" }}>
+    <motion.div key="profile" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem" }}>
 
-                                <div className="info-card" style={{ background: "rgba(255,240,245,0.05)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,111,174,0.25)", borderRadius: "20px", padding: "1.8rem 2.5rem", minWidth: "320px" }}>
-                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.3rem" }}>
-                                        <h3 style={{ color: "#FF6FAE", margin: 0, fontSize: "1rem" }}> Account Info</h3>
-                                        <motion.button whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.95 }} onClick={() => setEditing(true)}
-                                            style={{ padding: "0.4rem 1rem", borderRadius: "8px", border: "1px solid rgba(255,111,174,0.4)", background: "rgba(255,111,174,0.1)", color: "#FF6FAE", cursor: "pointer", fontSize: "0.75rem", fontFamily: "inherit" }}>
-                                            Edit
-                                        </motion.button>
-                                    </div>
-                                    {infoRow("Name", userData.name)}
-                                    {infoRow("Email", userData.email)}
-                                    {infoRow("MC Username", userData.mcUsername)}
-                                    {infoRow("Role", userData.role)}
-                                </div>
+            {/* ── Account Info ── */}
+            <div className="info-card" style={{ background: "rgba(255,240,245,0.05)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,111,174,0.25)", borderRadius: "20px", padding: "1.8rem 2.5rem" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.3rem" }}>
+                    <h3 style={{ color: "#FF6FAE", margin: 0, fontSize: "1rem" }}>⚙ Account Info</h3>
+                    <motion.button whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.95 }} onClick={() => setEditing(true)}
+                        style={{ padding: "0.4rem 1rem", borderRadius: "8px", border: "1px solid rgba(255,111,174,0.4)", background: "rgba(255,111,174,0.1)", color: "#FF6FAE", cursor: "pointer", fontSize: "0.75rem", fontFamily: "inherit" }}>
+                        Edit
+                    </motion.button>
+                </div>
+                {infoRow("Name", userData.name)}
+                {infoRow("Email", userData.email)}
+                {infoRow("MC Username", userData.mcUsername)}
+                {infoRow("Role", userData.role)}
+                {userData.discordId   && infoRow("Discord",   userData.discordId)}
+                {userData.instagramId && infoRow("Instagram", userData.instagramId)}
+                {userData.phone       && infoRow("Phone",     userData.phone)}
+                {userData.guardianName  && infoRow("Guardian",  userData.guardianName)}
+                {userData.guardianPhone && infoRow("Guardian Phone", userData.guardianPhone)}
+            </div>
 
-                                <div className="info-card" style={{ background: "rgba(255,240,245,0.05)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,111,174,0.25)", borderRadius: "20px", padding: "1.8rem 2.5rem" }}>
-                                    <h3 style={{ color: "#FF6FAE", marginBottom: "1.3rem", fontSize: "1rem", marginTop: 0 }}> School Info</h3>
-                                    {infoRow("Grade", userData.grade)}
-                                    {infoRow("Section", userData.section)}
-                                    {infoRow("Roll", userData.roll)}
-                                    {infoRow("Student ID", userData.studentId)}
-                                    {infoRow("Gender", userData.gender)}
-                                </div>
-                            </div>
-                        </motion.div>
-                    )}
+            {/* ── School Info ── */}
+            <div className="info-card" style={{ background: "rgba(255,240,245,0.05)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,111,174,0.25)", borderRadius: "20px", padding: "1.8rem 2.5rem" }}>
+                <h3 style={{ color: "#FF6FAE", marginBottom: "1.3rem", fontSize: "1rem", marginTop: 0 }}>🏫 School Info</h3>
+                {infoRow("Grade",      userData.grade)}
+                {infoRow("Section",    userData.section)}
+                {infoRow("Roll",       userData.roll)}
+                {infoRow("Student ID", userData.studentId)}
+                {infoRow("Gender",     userData.gender)}
+                {userData.shift      && infoRow("Shift",       userData.shift)}
+                {userData.group      && infoRow("Group",       userData.group)}
+                {userData.bloodGroup && infoRow("Blood Group", userData.bloodGroup)}
+                {userData.dob        && infoRow("Date of Birth", new Date(userData.dob).toLocaleDateString())}
+                {userData.address    && infoRow("Address",     userData.address)}
+            </div>
 
+            {/* ── Foreigner Info (only shown if userData.isForeigner or userData.country exists) ── */}
+            {(userData.isForeigner || userData.playerType === "foreigner") && (
+                <div className="info-card" style={{ background: "rgba(255,240,245,0.05)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,200,100,0.3)", borderRadius: "20px", padding: "1.8rem 2.5rem" }}>
+                    <h3 style={{ color: "#FFD166", marginBottom: "1.3rem", fontSize: "1rem", marginTop: 0 }}>🌍 Foreigner Info</h3>
+                {userData.country      && infoRow("Country",   userData.country)}
+                {userData.discordId    && infoRow("Discord",   userData.discordId)}
+                {userData.instagramId  && infoRow("Instagram", userData.instagramId)}
+                </div>
+            )}
+
+            {/* ── Account Status ── */}
+            <div className="info-card" style={{ background: "rgba(255,240,245,0.05)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,111,174,0.25)", borderRadius: "20px", padding: "1.8rem 2.5rem" }}>
+                <h3 style={{ color: "#FF6FAE", marginBottom: "1.3rem", fontSize: "1rem", marginTop: 0 }}>📋 Status</h3>
+                {infoRow("Status",      userData.status || "active")}
+                {infoRow("Registered",  userData.registeredAt ? new Date(userData.registeredAt).toLocaleDateString() : "N/A")}
+                {userData.approvedAt  && infoRow("Approved",   new Date(userData.approvedAt).toLocaleDateString())}
+                {userData.approvedBy  && infoRow("Approved By", userData.approvedBy)}
+                {userData.notes       && infoRow("Notes",      userData.notes)}
+            </div>
+
+        </div>
+    </motion.div>
+)}
                     {/* ANNOUNCEMENTS TAB */}
                     {activeTab === "announcements" && (
                         <motion.div key="announcements" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }}>

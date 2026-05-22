@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 
-function UbianModal({ onClose, onYes, onNo }) {
+function UbianModal({ onClose, onYes, onNo, onForeigner }) {
     return (
         <AnimatePresence>
             <motion.div
@@ -56,8 +56,13 @@ function UbianModal({ onClose, onYes, onNo }) {
                             0%, 100% { box-shadow: 0 0 0px rgba(255,111,174,0.4); }
                             50% { box-shadow: 0 0 20px rgba(255,111,174,0.8), 0 0 40px rgba(255,111,174,0.3); }
                         }
+                        @keyframes globe-glow {
+                            0%, 100% { box-shadow: 0 0 0px rgba(100,200,255,0.4); }
+                            50% { box-shadow: 0 0 20px rgba(100,200,255,0.8), 0 0 40px rgba(100,200,255,0.3); }
+                        }
                         .ubian-yes:hover { animation: pulse-glow 1s ease infinite; }
                         .ubian-no:hover { filter: brightness(1.2); }
+                        .ubian-foreigner:hover { animation: globe-glow 1s ease infinite; }
                     `}</style>
 
                     <motion.div
@@ -113,7 +118,8 @@ function UbianModal({ onClose, onYes, onNo }) {
                         marginBottom: "2rem"
                     }} />
 
-                    <div style={{ display: "flex", gap: "1.2rem", justifyContent: "center" }}>
+                    {/* Yes / No row */}
+                    <div style={{ display: "flex", gap: "1.2rem", justifyContent: "center", marginBottom: "1rem" }}>
                         <motion.button
                             className="ubian-yes"
                             whileHover={{ scale: 1.08, y: -3 }}
@@ -162,6 +168,41 @@ function UbianModal({ onClose, onYes, onNo }) {
                             ✗ No
                         </motion.button>
                     </div>
+
+                    {/* Divider */}
+                    <div style={{
+                        display: "flex", alignItems: "center", gap: "10px", marginBottom: "1rem"
+                    }}>
+                        <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.08)" }} />
+                        <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.65rem", letterSpacing: "2px", textTransform: "uppercase" }}>or</span>
+                        <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.08)" }} />
+                    </div>
+
+                    {/* Foreigner button — full width */}
+                    <motion.button
+                        className="ubian-foreigner"
+                        whileHover={{ scale: 1.05, y: -2 }}
+                        whileTap={{ scale: 0.93 }}
+                        onClick={onForeigner}
+                        style={{
+                            width: "100%",
+                            padding: "0.85rem 2rem",
+                            borderRadius: "999px",
+                            border: "1.5px solid rgba(100,200,255,0.45)",
+                            background: "linear-gradient(135deg, rgba(100,200,255,0.12) 0%, rgba(100,200,255,0.06) 100%)",
+                            backdropFilter: "blur(10px)",
+                            color: "rgba(160,225,255,0.9)",
+                            fontWeight: "800",
+                            fontSize: "0.9rem",
+                            cursor: "pointer",
+                            letterSpacing: "1px",
+                            fontFamily: "'Courier New', monospace",
+                            position: "relative",
+                            overflow: "hidden"
+                        }}
+                    >
+                        🌍 Are you a Foreigner?
+                    </motion.button>
 
                     <motion.p
                         initial={{ opacity: 0 }}
@@ -244,6 +285,7 @@ function LoginPortal() {
                         onClose={() => setShowModal(false)}
                         onYes={() => { setShowModal(false); navigate("/register"); }}
                         onNo={() => { setShowModal(false); navigate("/non-ubian"); }}
+                        onForeigner={() => { setShowModal(false); navigate("/bideshi"); }}
                     />
                 )}
             </AnimatePresence>

@@ -18,7 +18,7 @@ const MOBILE_STYLES = `
       min-width: 0 !important;
     }
     .users-table-wrap table {
-      min-width: 520px !important;
+      min-width: 620px !important;
     }
   }
 `;
@@ -28,18 +28,20 @@ function UsersPanel({ users, adminName, onRefresh, onPromote, onDemote, onDelete
     const [filterGender, setFilterGender] = useState("all");
     const [filterGrade, setFilterGrade] = useState("all");
     const [filterStatus, setFilterStatus] = useState("all");
+    const [filterType, setFilterType] = useState("all");
     const [selectedUser, setSelectedUser] = useState(null);
 
     const filtered = users.filter(u => {
         const q = search.toLowerCase();
         const matchSearch = u.name?.toLowerCase().includes(q) || u.email?.toLowerCase().includes(q);
         const matchGender = filterGender === "all" || u.gender === filterGender;
-        const matchGrade = filterGrade === "all" ||
-            u.grade === filterGrade ||
-            u.grade === `Grade ${filterGrade}`;
-        const matchStatus = filterStatus === "all" ||
-            (filterStatus === "banned" ? u.status === "banned" : u.status !== "banned");
-        return matchSearch && matchGender && matchGrade && matchStatus;
+        const matchGrade  = filterGrade === "all" || u.grade === filterGrade || u.grade === `Grade ${filterGrade}`;
+        const matchStatus = filterStatus === "all" || (filterStatus === "banned" ? u.status === "banned" : u.status !== "banned");
+        const matchType =
+    filterType === "all" ||
+    (filterType === "foreigner" && (u.playerType === "foreigner" || u.isForeigner)) ||
+    (filterType === "local"    && u.playerType !== "foreigner" && !u.isForeigner);
+        return matchSearch && matchGender && matchGrade && matchStatus && matchType;
     });
 
     const selectStyle = {
@@ -49,6 +51,8 @@ function UsersPanel({ users, adminName, onRefresh, onPromote, onDemote, onDelete
         color: "#fff", outline: "none", fontSize: "0.83rem",
         fontFamily: "'Courier New', monospace", cursor: "pointer"
     };
+
+    const isForeigner = (u) => u.playerType === "foreigner" || u.isForeigner;
 
     return (
         <div>
@@ -88,14 +92,16 @@ function UsersPanel({ users, adminName, onRefresh, onPromote, onDemote, onDelete
             {/* Filters */}
             <div className="users-filters" style={{ display: "flex", gap: "0.8rem", flexWrap: "wrap", marginBottom: "1.5rem" }}>
                 <input
-                    style={{
-                        ...selectStyle, flex: "1", minWidth: "200px",
-                        cursor: "text"
-                    }}
+                    style={{ ...selectStyle, flex: "1", minWidth: "200px", cursor: "text" }}
                     placeholder="🔎 Search name or email..."
                     value={search}
                     onChange={e => setSearch(e.target.value)}
                 />
+                <select style={selectStyle} value={filterType} onChange={e => setFilterType(e.target.value)}>
+                    <option value="all">All Types</option>
+                    <option value="foreigner">🌍 Foreigner</option>
+                    <option value="local">🏠 Local</option>
+                </select>
                 <select style={selectStyle} value={filterGender} onChange={e => setFilterGender(e.target.value)}>
                     <option value="all">All Genders</option>
                     <option value="Male">Male</option>
@@ -116,8 +122,20 @@ function UsersPanel({ users, adminName, onRefresh, onPromote, onDemote, onDelete
             </div>
 
             {/* Stats bar */}
-            <div style={{ color: "#888", fontSize: "0.78rem", marginBottom: "1rem", fontFamily: "'Courier New', monospace" }}>
-                Showing <span style={{ color: "#FF6FAE", fontWeight: "bold" }}>{filtered.length}</span> of {users.length} users
+            <div style={{ display: "flex", gap: "1.5rem", marginBottom: "1rem", fontFamily: "'Courier New', monospace", flexWrap: "wrap" }}>
+                <span style={{ color: "#888", fontSize: "0.78rem" }}>
+                    Showing <span style={{ color: "#FF6FAE", fontWeight: "bold" }}>{filtered.length}</span> of {users.length} users
+                </span>
+                <span style={{ color: "#888", fontSize: "0.78rem" }}>
+                    🌍 <span style={{ color: "#FFD166", fontWeight: "bold" }}>
+                        {users.filter(u => isForeigner(u)).length}
+                    </span> foreign
+                </span>
+                <span style={{ color: "#888", fontSize: "0.78rem" }}>
+                    🏠 <span style={{ color: "#60a5fa", fontWeight: "bold" }}>
+                        {users.filter(u => !isForeigner(u)).length}
+                    </span> local
+                </span>
             </div>
 
             {/* Table */}
@@ -131,10 +149,10 @@ function UsersPanel({ users, adminName, onRefresh, onPromote, onDemote, onDelete
                     WebkitOverflowScrolling: "touch",
                 }}
             >
-                <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: "'Courier New', monospace", minWidth: "700px" }}>
+                <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: "'Courier New', monospace", minWidth: "780px" }}>
                     <thead>
                         <tr style={{ background: "rgba(255,111,174,0.1)", borderBottom: "1px solid rgba(255,111,174,0.3)" }}>
-                            {["Name", "Email", "Gender", "Grade", "Role", "Status", "Registered"].map(h => (
+                            {["Name", "Email", "Type", "Grade / Country", "Role", "Status", "Registered"].map(h => (
                                 <th key={h} style={{
                                     padding: "1rem",
                                     color: "#FF6FAE", textAlign: "left",
@@ -167,17 +185,36 @@ function UsersPanel({ users, adminName, onRefresh, onPromote, onDemote, onDelete
                                     background: u.status === "banned" ? "rgba(248,113,113,0.04)" : "transparent",
                                 }}
                             >
-                                <td style={{ padding: "0.85rem 1rem", color: "#fff", fontSize: "0.85rem", whiteSpace: "nowrap" }}>{u.name}</td>
-                                <td style={{ padding: "0.85rem 1rem", color: "#aaa", fontSize: "0.78rem", whiteSpace: "nowrap" }}>{u.email}</td>
-                                <td style={{ padding: "0.85rem 1rem", color: "#ddd", fontSize: "0.83rem" }}>{u.gender}</td>
-                                <td style={{ padding: "0.85rem 1rem", color: "#ddd", fontSize: "0.83rem" }}>{u.grade}</td>
+                                <td style={{ padding: "0.85rem 1rem", color: "#fff", fontSize: "0.85rem", whiteSpace: "nowrap" }}>
+                                    {u.name}
+                                </td>
+                                <td style={{ padding: "0.85rem 1rem", color: "#aaa", fontSize: "0.78rem", whiteSpace: "nowrap" }}>
+                                    {u.email}
+                                </td>
+
+                                {/* Type badge */}
+                                <td style={{ padding: "0.85rem 1rem" }}>
+                                    <span style={{
+                                        color: isForeigner(u) ? "#FFD166" : "#60a5fa",
+                                        background: isForeigner(u) ? "rgba(255,209,102,0.12)" : "rgba(96,165,250,0.12)",
+                                        padding: "2px 8px", borderRadius: "6px",
+                                        fontSize: "0.72rem", fontWeight: "bold", whiteSpace: "nowrap",
+                                    }}>
+                                        {isForeigner(u) ? "🌍 FOREIGN" : "🏠 LOCAL"}
+                                    </span>
+                                </td>
+
+                                {/* Grade for locals, Country for foreigners */}
+                                <td style={{ padding: "0.85rem 1rem", color: "#ddd", fontSize: "0.83rem", whiteSpace: "nowrap" }}>
+                                    {isForeigner(u) ? (u.country || "N/A") : (u.grade || "N/A")}
+                                </td>
+
                                 <td style={{ padding: "0.85rem 1rem" }}>
                                     <span style={{
                                         color: u.role === "admin" ? "#a78bfa" : "#4ade80",
                                         background: u.role === "admin" ? "rgba(167,139,250,0.15)" : "rgba(74,222,128,0.15)",
                                         padding: "2px 8px", borderRadius: "6px",
-                                        fontSize: "0.72rem", fontWeight: "bold",
-                                        whiteSpace: "nowrap",
+                                        fontSize: "0.72rem", fontWeight: "bold", whiteSpace: "nowrap",
                                     }}>
                                         {u.role?.toUpperCase() || "USER"}
                                     </span>
@@ -187,8 +224,7 @@ function UsersPanel({ users, adminName, onRefresh, onPromote, onDemote, onDelete
                                         color: u.status === "banned" ? "#f87171" : "#4ade80",
                                         background: u.status === "banned" ? "rgba(248,113,113,0.15)" : "rgba(74,222,128,0.15)",
                                         padding: "2px 8px", borderRadius: "6px",
-                                        fontSize: "0.72rem", fontWeight: "bold",
-                                        whiteSpace: "nowrap",
+                                        fontSize: "0.72rem", fontWeight: "bold", whiteSpace: "nowrap",
                                     }}>
                                         {u.status === "banned" ? "BANNED" : "ACTIVE"}
                                     </span>

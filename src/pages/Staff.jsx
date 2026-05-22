@@ -7,6 +7,7 @@ import "../App.css";
 
 const ig = "/ig.png";
 const dc = "/dc.png";
+const himayt = "/himayt.png";
 const whatsapp = "/whatsapp.png";
 const logo = "/udayan.png";
 
@@ -17,10 +18,28 @@ const playClick = () => {
     clickSound.play().catch(() => { });
 };
 
+const STAFF_OWNER = {
+    id: "udayan",
+    name: "Udayan SMP",
+    avatar: "/logo.png",
+    role: "Owner · Admin · Mastermind",
+    desc: "The founder and sole architect of this universe. Every system, every rule, every pixel of this server exists because of his vision. He built it from nothing — and turned it into something legendary.",
+    badges: [
+        { label: "Owner", color: "#f5c842" },
+        { label: "Admin", color: "#FF6FAE" },
+        { label: "Founder", color: "#ffb6d5" },
+    ],
+    socials: [
+        { type: "link", icon: ig, href: "https://www.instagram.com/udayansmp", label: "Instagram" },
+        { type: "copy", icon: dc, reveal: "udayansmp", label: "Discord" },
+    ],
+    special: true,
+};
+
 const STAFF = [
     {
         id: "mahad",
-        name: "Nyrixx",
+        name: "Mahad",
         avatar: "/nyrixx.png",
         role: "Admin · Support Lead",
         desc: "The backbone of moderation. Nyrixx keeps the server clean, handles reports with precision, and is always there when players need help. Cool-headed under pressure.",
@@ -29,27 +48,10 @@ const STAFF = [
             { label: "Support", color: "#ffb6d5" },
         ],
         socials: [
-            { type: "hover", icon: dc, reveal: "mahad_280511", label: "Discord" },
-            { type: "hover", icon: whatsapp, reveal: "+8801908942101", label: "WhatsApp" },
+            { type: "copy", icon: dc, reveal: "mahad_280511", label: "Discord" },
+            { type: "copy", icon: whatsapp, reveal: "+8801908942101", label: "WhatsApp" },
         ],
         special: false,
-    },
-    {
-        id: "udayan",
-        name: "Udayan SMP",
-        avatar: "/logo.png",
-        role: "Owner · Admin · Mastermind",
-        desc: "The founder and sole architect of this universe. Every system, every rule, every pixel of this server exists because of his vision. He built it from nothing — and turned it into something legendary.",
-        badges: [
-            { label: "Owner", color: "#f5c842" },
-            { label: "Admin", color: "#FF6FAE" },
-            { label: "Founder", color: "#ffb6d5" },
-        ],
-        socials: [
-            { type: "link", icon: ig, href: "https://www.instagram.com/udayansmp", label: "Instagram" },
-            { type: "hover", icon: dc, reveal: "udayansmp", label: "Discord" },
-        ],
-        special: true,
     },
     {
         id: "himadree",
@@ -63,7 +65,23 @@ const STAFF = [
         ],
         socials: [
             { type: "link", icon: ig, href: "https://www.instagram.com/gwfonta?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", label: "Instagram" },
-            { type: "hover", icon: dc, reveal: "fontaz_h", label: "Discord" },
+            { type: "link", icon: himayt, href: "https://www.youtube.com/@FONTAZ_H", label: "YouTube" },
+        ],
+        special: false,
+    },
+    {
+        id: "fon",
+        name: "Himadree",
+        avatar: "/fon.png",
+        role: "Discord Server Builder · Admin",
+        desc: "The architect behind the Discord. Fon engineered the server's structure from the ground up — channels, roles, bots, and every category in between. A legend in his own right.",
+        badges: [
+            { label: "Server Builder", color: "#7289DA" },
+            { label: "Admin", color: "#ffb6d5" },
+        ],
+        socials: [
+            { type: "link", icon: ig, href: "https://www.instagram.com/real_himadrid?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", label: "Instagram" },
+            { type: "copy", icon: dc, reveal: "fontaz_h", label: "Discord" },
         ],
         special: false,
     },
@@ -90,6 +108,16 @@ function useTilt(ref) {
 
 function SocialIcon({ s }) {
     const [show, setShow] = useState(false);
+    const [copied, setCopied] = useState(false);
+
+    const handleCopy = () => {
+        if (s.reveal) {
+            navigator.clipboard.writeText(s.reveal).then(() => {
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+            });
+        }
+    };
 
     if (s.type === "link") {
         return (
@@ -104,6 +132,45 @@ function SocialIcon({ s }) {
         );
     }
 
+    if (s.type === "copy") {
+        return (
+            <div
+                className="sp-social-wrap"
+                onClick={handleCopy}
+                onMouseEnter={() => setShow(true)}
+                onMouseLeave={() => setShow(false)}
+                style={{ position: "relative", cursor: "pointer" }}
+            >
+                <motion.img
+                    src={s.icon}
+                    className="sp-social-icon"
+                    whileHover={{ rotate: 360, scale: 1.25 }}
+                    transition={{ duration: 0.5 }}
+                />
+                <AnimatePresence>
+                    {(show || copied) && (
+                        <motion.div
+                            className="sp-reveal"
+                            initial={{ opacity: 0, y: 6, scale: 0.9 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 6, scale: 0.9 }}
+                            transition={{ duration: 0.15 }}
+                            style={copied ? {
+                                background: "rgba(80,200,120,0.95)",
+                                color: "#fff",
+                                borderColor: "rgba(80,200,120,0.5)",
+                                boxShadow: "0 0 12px rgba(80,200,120,0.5)"
+                            } : {}}
+                        >
+                            {copied ? "✓ Copied!" : s.reveal}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
+        );
+    }
+
+    // hover type (fallback)
     return (
         <div
             className="sp-social-wrap"
@@ -134,13 +201,13 @@ function SocialIcon({ s }) {
     );
 }
 
-function StaffCard({ member, index }) {
+function StaffCard({ member, index, isOwner }) {
     const ref = useRef(null);
     const tilt = useTilt(ref);
 
     return (
         <motion.div
-            className={`sp-card ${member.special ? "sp-card-special" : ""}`}
+            className={`sp-card ${member.special ? "sp-card-special" : ""} ${isOwner ? "sp-card-owner" : ""}`}
             ref={ref}
             {...tilt}
             onClick={playClick}
@@ -162,7 +229,6 @@ function StaffCard({ member, index }) {
                         }}
                     />
                 </div>
-
 
                 <h2 className={`sp-name ${member.special ? "sp-name-special" : ""}`}>{member.name}</h2>
                 <p className={`sp-role ${member.special ? "sp-role-special" : ""}`}>{member.role}</p>
@@ -295,6 +361,25 @@ export default function Staff() {
                     background: linear-gradient(180deg, #ff8fc1, #ffffff);
                 }
 
+                .sp-cards-owner-row {
+                    display: flex;
+                    justify-content: center;
+                    margin-bottom: 2rem;
+                }
+
+                .sp-card-owner {
+                    max-width: 380px;
+                    width: 100%;
+                }
+
+                .sp-cards {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    gap: 2rem;
+                    padding: 0 2rem 4rem;
+                }
+
                 .sp-avatar {
                     width: 120px;
                     height: 120px;
@@ -305,7 +390,6 @@ export default function Staff() {
                     justify-content: center;
                     border-radius: 12px;
                 }
-
 
                 .sp-avatar-img {
                     width: 92px;
@@ -336,53 +420,18 @@ export default function Staff() {
                     object-fit: contain;
                 }
 
-
                 .sp-avatar-img-mahad {
                     width: 150px;
                     height: 150px;
                     object-fit: contain;
                 }
 
-  <motion.div
-                whileHover={{ scale: 1.2, filter: "drop-shadow(0 0 10px #FF6FAE)" }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => navigate("/")}
-                style={{
-                    position: "fixed",
-                    top: "18px",
-                    left: "18px",
-                    zIndex: 10000,
-                    cursor: "pointer",
-                    background: "rgba(255,111,174,0.15)",
-                    backdropFilter: "blur(12px)",
-                    border: "1px solid rgba(255,111,174,0.35)",
-                    borderRadius: "12px",
-                    padding: "8px 14px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "8px"
-                }}
-            >
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                    <path
-                        d="M15 18L9 12L15 6"
-                        stroke="#FF6FAE"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-                </svg>
-                <span
-                    style={{
-                        color: "#FF6FAE",
-                        fontSize: "0.8rem",
-                        fontWeight: "bold",
-                        letterSpacing: "1px"
-                    }}
-                >
-                    Home
-                </span>
-            </motion.div>
+                .sp-avatar-img-fon {
+                    width: 110px;
+                    height: 110px;
+                    object-fit: contain;
+                    border-radius: 12px;
+                }
             `}</style>
 
             <MouseTrail />
@@ -416,14 +465,7 @@ export default function Staff() {
                         strokeLinejoin="round"
                     />
                 </svg>
-                <span
-                    style={{
-                        color: "#FF6FAE",
-                        fontSize: "0.8rem",
-                        fontWeight: "bold",
-                        letterSpacing: "1px"
-                    }}
-                >
+                <span style={{ color: "#FF6FAE", fontSize: "0.8rem", fontWeight: "bold", letterSpacing: "1px" }}>
                     Home
                 </span>
             </motion.div>
@@ -486,9 +528,15 @@ export default function Staff() {
                     </motion.p>
                 </header>
 
+                {/* Owner card — featured on top, centered */}
+                <div className="sp-cards-owner-row">
+                    <StaffCard member={STAFF_OWNER} index={0} isOwner={true} />
+                </div>
+
+                {/* Three staff cards below */}
                 <main className="sp-cards">
                     {STAFF.map((member, i) => (
-                        <StaffCard key={member.id} member={member} index={i} />
+                        <StaffCard key={member.id} member={member} index={i + 1} isOwner={false} />
                     ))}
                 </main>
             </div>

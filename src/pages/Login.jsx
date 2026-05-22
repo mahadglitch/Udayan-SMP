@@ -57,6 +57,8 @@ const EyeClosed = () => (
 
 /* ── Shared UbianModal ── */
 function UbianModal({ onClose, onYes, onNo }) {
+    const navigate = useNavigate();
+
     return (
         <AnimatePresence>
             <motion.div
@@ -108,8 +110,13 @@ function UbianModal({ onClose, onYes, onNo }) {
                             0%, 100% { box-shadow: 0 0 0px rgba(255,111,174,0.4); }
                             50% { box-shadow: 0 0 20px rgba(255,111,174,0.8), 0 0 40px rgba(255,111,174,0.3); }
                         }
+                        @keyframes globe-glow {
+                            0%, 100% { box-shadow: 0 0 0px rgba(100,200,255,0.4); }
+                            50% { box-shadow: 0 0 20px rgba(100,200,255,0.8), 0 0 40px rgba(100,200,255,0.3); }
+                        }
                         .ubian-yes:hover { animation: pulse-glow 1s ease infinite; }
                         .ubian-no:hover { filter: brightness(1.2); }
+                        .ubian-foreigner:hover { animation: globe-glow 1s ease infinite; }
                     `}</style>
 
                     <motion.div
@@ -139,12 +146,9 @@ function UbianModal({ onClose, onYes, onNo }) {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.15 }}
                         style={{
-                            fontSize: "2rem",
-                            fontWeight: "900",
-                            color: "#f5c842",
+                            fontSize: "2rem", fontWeight: "900", color: "#f5c842",
                             textShadow: "3px 3px 0 #7a5c00, 0 0 30px rgba(245,200,66,0.6)",
-                            marginBottom: "0.6rem",
-                            lineHeight: 1.2
+                            marginBottom: "0.6rem", lineHeight: 1.2
                         }}
                     >
                         Are You An Ubian?
@@ -165,27 +169,21 @@ function UbianModal({ onClose, onYes, onNo }) {
                         marginBottom: "2rem"
                     }} />
 
-                    <div style={{ display: "flex", gap: "1.2rem", justifyContent: "center" }}>
+                    {/* Yes / No row */}
+                    <div style={{ display: "flex", gap: "1.2rem", justifyContent: "center", marginBottom: "1rem" }}>
                         <motion.button
                             className="ubian-yes"
                             whileHover={{ scale: 1.08, y: -3 }}
                             whileTap={{ scale: 0.93 }}
                             onClick={onYes}
                             style={{
-                                padding: "0.85rem 2rem",
-                                borderRadius: "999px",
+                                padding: "0.85rem 2rem", borderRadius: "999px",
                                 border: "1.5px solid rgba(255,111,174,0.7)",
                                 background: "linear-gradient(135deg, rgba(255,111,174,0.35) 0%, rgba(255,111,174,0.15) 100%)",
-                                backdropFilter: "blur(10px)",
-                                color: "#fff",
-                                fontWeight: "800",
-                                fontSize: "0.95rem",
-                                cursor: "pointer",
-                                letterSpacing: "1px",
-                                fontFamily: "'Courier New', monospace",
-                                flex: 1,
-                                position: "relative",
-                                overflow: "hidden"
+                                backdropFilter: "blur(10px)", color: "#fff",
+                                fontWeight: "800", fontSize: "0.95rem", cursor: "pointer",
+                                letterSpacing: "1px", fontFamily: "'Courier New', monospace",
+                                flex: 1, position: "relative", overflow: "hidden"
                             }}
                         >
                             ✦ Yes
@@ -197,23 +195,43 @@ function UbianModal({ onClose, onYes, onNo }) {
                             whileTap={{ scale: 0.93 }}
                             onClick={onNo}
                             style={{
-                                padding: "0.85rem 2rem",
-                                borderRadius: "999px",
+                                padding: "0.85rem 2rem", borderRadius: "999px",
                                 border: "1.5px solid rgba(255,255,255,0.15)",
-                                background: "rgba(255,255,255,0.06)",
-                                backdropFilter: "blur(10px)",
-                                color: "rgba(255,255,255,0.65)",
-                                fontWeight: "800",
-                                fontSize: "0.95rem",
-                                cursor: "pointer",
-                                letterSpacing: "1px",
-                                fontFamily: "'Courier New', monospace",
-                                flex: 1
+                                background: "rgba(255,255,255,0.06)", backdropFilter: "blur(10px)",
+                                color: "rgba(255,255,255,0.65)", fontWeight: "800",
+                                fontSize: "0.95rem", cursor: "pointer",
+                                letterSpacing: "1px", fontFamily: "'Courier New', monospace", flex: 1
                             }}
                         >
                             ✗ No
                         </motion.button>
                     </div>
+
+                    {/* Divider */}
+                    <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "1rem" }}>
+                        <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.08)" }} />
+                        <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.65rem", letterSpacing: "2px", textTransform: "uppercase" }}>or</span>
+                        <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.08)" }} />
+                    </div>
+
+                    {/* Foreigner button */}
+                    <motion.button
+                        className="ubian-foreigner"
+                        whileHover={{ scale: 1.05, y: -2 }}
+                        whileTap={{ scale: 0.93 }}
+                        onClick={() => { onClose(); navigate("/bideshi"); }}
+                        style={{
+                            width: "100%", padding: "0.85rem 2rem", borderRadius: "999px",
+                            border: "1.5px solid rgba(100,200,255,0.45)",
+                            background: "linear-gradient(135deg, rgba(100,200,255,0.12) 0%, rgba(100,200,255,0.06) 100%)",
+                            backdropFilter: "blur(10px)", color: "rgba(160,225,255,0.9)",
+                            fontWeight: "800", fontSize: "0.9rem", cursor: "pointer",
+                            letterSpacing: "1px", fontFamily: "'Courier New', monospace",
+                            position: "relative", overflow: "hidden"
+                        }}
+                    >
+                        🌍 Are you a Foreigner?
+                    </motion.button>
 
                     <motion.p
                         initial={{ opacity: 0 }}

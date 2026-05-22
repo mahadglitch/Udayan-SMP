@@ -13,7 +13,7 @@ import UserDashboard from "./pages/UserDashboard";
 import NonUbian from "./pages/NonUbian";
 import Staff from "./pages/Staff";
 import Developers from "./pages/Developers";
-
+import Bideshi from "./pages/bideshi"; // ✅ PascalCase alias
 import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
@@ -31,8 +31,8 @@ function App() {
         {/* Pages */}
         <Route path="/rules" element={<Rules />} />
         <Route path="/donate" element={<Donate />} />
-
         <Route path="/non-ubian" element={<NonUbian />} />
+        <Route path="/bideshi" element={<Bideshi />} /> {/* ✅ Added route */}
 
         {/* Staff Route - Public */}
         <Route path="/staff" element={<Staff />} />
