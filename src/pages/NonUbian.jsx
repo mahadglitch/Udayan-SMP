@@ -350,7 +350,7 @@ function NonUbian() {
 
     const [form, setForm] = useState({
         name: "", email: "", password: "", confirmPassword: "",
-        mcUsername: "", school: "", roll: "", section: "", grade: "", gender: ""
+        mcUsername: "", school: "", grade: "", gender: ""
     });
 
     const [error, setError] = useState("");
@@ -425,7 +425,6 @@ function NonUbian() {
 
     const handleChange = (e) => {
         let value = e.target.value;
-        if (e.target.name === "roll") value = value.replace(/\D/g, "");
         if (e.target.name === "password") setPasswordStrength(getPasswordStrength(value));
         setForm({ ...form, [e.target.name]: value });
     };
@@ -443,8 +442,6 @@ function NonUbian() {
             { key: "confirmPassword", label: "Repeat Password" },
             { key: "mcUsername", label: "Minecraft Username" },
             { key: "school", label: "School" },
-            { key: "roll", label: "Roll Number" },
-            { key: "section", label: "Section" },
             { key: "grade", label: "Grade" },
             { key: "gender", label: "Gender" },
         ];
@@ -464,8 +461,6 @@ function NonUbian() {
                 email: form.email,
                 mcUsername: form.mcUsername,
                 school: form.school,
-                roll: form.roll,
-                section: form.section,
                 grade: form.grade,
                 gender: form.gender,
                 role: "user",
@@ -708,9 +703,6 @@ function NonUbian() {
                                 )}
                             </AnimatePresence>
                         </div>
-
-                        <input name="roll" placeholder="Roll Number" onChange={handleChange} value={form.roll} inputMode="numeric" style={input} />
-                        <input name="section" placeholder="Section" onChange={handleChange} style={input} />
 
                         {/* Gender Selector */}
                         <GenderSelector
